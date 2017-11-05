@@ -129,10 +129,35 @@ public class Test2 extends JFrame{
     }
     
     private void loadJson(JPanel area) throws IOException, ParseException{
-        Resizable resi;
+        Resizable resi ;
+        JLabel temp = new JLabel();
+        resi = new Resizable(temp);
         JSONParser parser = new JSONParser();
         JSONObject o = (JSONObject) parser.parse(new FileReader("C:\\js.json"));
         JSONArray element;
+        ArrayList<Resizable> arrayList = new ArrayList<Resizable>();;
+        int i = 0;
+        if(o.containsKey("lbl")){
+        element = (JSONArray) o.get("lbl");
+            for (Object obj : element){
+                i++;
+            }
+        }
+        if(o.containsKey("btn")){
+        element = (JSONArray) o.get("btn");
+            for (Object obj : element){
+                i++;
+            }
+        }
+        if(o.containsKey("txt")){
+        element = (JSONArray) o.get("txt");
+            for (Object obj : element){
+                i++;
+            }    
+        }
+        for(int j =0; j < i; j++){
+            arrayList.add(resi);
+        }
         
         if(o.containsKey("lbl")){
             element = (JSONArray) o.get("lbl");
@@ -166,7 +191,8 @@ public class Test2 extends JFrame{
                 resi = new Resizable(jl);
                 resi.setBounds(Integer.parseInt(locationx), Integer.parseInt(locationy), Integer.parseInt(width), Integer.parseInt(height));
                 list.add(resi);
-                area.add(resi);
+                
+                arrayList.add(Integer.parseInt(layer), resi);
                 
             }
         }
@@ -202,7 +228,7 @@ public class Test2 extends JFrame{
                 resi = new Resizable(btn);
                 resi.setBounds(Integer.parseInt(locationx), Integer.parseInt(locationy), Integer.parseInt(width), Integer.parseInt(height));
                 list.add(resi);
-                area.add(resi);
+                arrayList.add(Integer.parseInt(layer), resi);
             }
         }
         
@@ -238,8 +264,11 @@ public class Test2 extends JFrame{
                 resi = new Resizable(txt);
                 resi.setBounds(Integer.parseInt(locationx), Integer.parseInt(locationy), Integer.parseInt(width), Integer.parseInt(height));
                 list.add(resi);
-                area.add(resi);
+                arrayList.add(Integer.parseInt(layer), resi);
             }
+        }
+        for(int j = 0; j < arrayList.size(); j++){
+            area.add(arrayList.get(j));
         }
     }
     
