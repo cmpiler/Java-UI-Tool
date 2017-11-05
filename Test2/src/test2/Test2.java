@@ -11,12 +11,14 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.List;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -30,13 +32,42 @@ import javax.swing.TransferHandler;
 public class Test2 extends JFrame{
     
  private Resizable res;
+ private JWriter writer;
+ private String elements = "";
+ private static ArrayList<JComponent> list = new ArrayList<JComponent>();;
+ 
     public Test2() {
 
         initUI();
     }
 
+    private void saveJson(){
+         
+            for(int i = 0; i < list.size(); i++){
+                   Component component = list.get(i).getComponent(i);
+                if(component instanceof JLabel){
+                    JLabel label = (JLabel)list.get(i).getComponent(i);
+                    String text = label.getText();
+                    elements += "lbl:location-" + list.get(i).getLocation() + ",text-" + text + ";";
+                }
+                
+                else if(component instanceof JButton){
+                    JButton button = (JButton)list.get(i).getComponent(i);
+                    String text = button.getText();
+                    elements += "btn:location-" + list.get(i).getLocation() + ",text-" + text + ";";
+                }
+                
+                else if(component instanceof JTextField){
+                    JTextField txt = (JTextField)list.get(i).getComponent(i);
+                    String text = txt.getText();
+                    elements += "txt:location-" + list.get(i).getLocation() + ",text-" + text + ";";
+                }
+            }
+            System.out.println(elements);
+            writer.write(elements);
+    }
+    
     private void initUI() {
-
         JPanel pnl = new JPanel(null);
         add(pnl);
 
@@ -44,6 +75,14 @@ public class Test2 extends JFrame{
         JMenu menu1 = new JMenu("Save");
         mb.add(menu1);
         setJMenuBar(mb);
+        
+        menu1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent me) {
+
+                saveJson();
+            }
+        });
         
         JPanel area = new JPanel();
         area.setBackground(Color.white);
@@ -199,6 +238,7 @@ public class Test2 extends JFrame{
                                 JLabel jl = new JLabel("Label");  
                                 res = new Resizable(jl);
                                 res.setBounds(450,200,100,40);
+                                list.add(res);
                                 /*
                                 jl.addMouseMotionListener(new MouseAdapter(){
                                 @Override
@@ -218,6 +258,7 @@ public class Test2 extends JFrame{
                                 JButton btn = new JButton("Button"); 
                                 res = new Resizable(btn);
                                 res.setBounds(450,200,100,40);
+                                list.add(res);
                                 /*
                                 btn.addMouseMotionListener(new MouseAdapter(){
                                     
@@ -239,6 +280,7 @@ public class Test2 extends JFrame{
                                 
                                 Font font = tf.getFont().deriveFont(Font.PLAIN, 30f);
                                 tf.setFont(font);
+                                list.add(res);
                                 /*
                                 tf.addMouseMotionListener(new MouseAdapter(){
 
