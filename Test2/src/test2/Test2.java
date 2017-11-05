@@ -119,7 +119,9 @@ public class Test2 extends JFrame{
                 }
             }
             System.out.println(elements);
+            JWriter writer = new JWriter();
             writer.write(elements);
+            
     }
     
     private void initUI() {
