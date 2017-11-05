@@ -18,7 +18,11 @@ import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -28,7 +32,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.TransferHandler;
-
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 public class Test2 extends JFrame{
     
  private Resizable res;
@@ -121,13 +128,130 @@ public class Test2 extends JFrame{
             
     }
     
+    private void loadJson(JPanel area) throws IOException, ParseException{
+        Resizable resi;
+        JSONParser parser = new JSONParser();
+        JSONObject o = (JSONObject) parser.parse(new FileReader("C:\\js.json"));
+        JSONArray element;
+        
+        if(o.containsKey("lbl")){
+            element = (JSONArray) o.get("lbl");
+        
+            for (Object obj : element){
+                JSONObject jSon = (JSONObject) obj;
+                
+                String locationx = (String) jSon.get("locationx");
+                System.out.println(locationx);
+
+                String locationy = (String) jSon.get("locationy");
+                System.out.println(locationy);
+
+                String width = (String) jSon.get("width");
+                System.out.println(width);
+
+                String text = (String) jSon.get("text");
+                System.out.println(text);
+            
+                String type = (String) jSon.get("type");
+                System.out.println(type);
+            
+                String layer = (String) jSon.get("layer");
+                System.out.println(layer);
+            
+                String height = (String) jSon.get("height");
+                System.out.println(text);   
+                
+                JLabel jl = new JLabel(text);
+                jl.setBounds(Integer.parseInt(locationx), Integer.parseInt(locationy), Integer.parseInt(width), Integer.parseInt(height));
+                resi = new Resizable(jl);
+                resi.setBounds(Integer.parseInt(locationx), Integer.parseInt(locationy), Integer.parseInt(width), Integer.parseInt(height));
+                list.add(resi);
+                area.add(resi);
+                
+            }
+        }
+        if(o.containsKey("btn")){
+            element = (JSONArray) o.get("btn");
+        
+            for (Object obj : element){
+                JSONObject jSon = (JSONObject) obj;
+                
+                String locationx = (String) jSon.get("locationx");
+                System.out.println(locationx);
+
+                String locationy = (String) jSon.get("locationy");
+                System.out.println(locationy);
+
+                String width = (String) jSon.get("width");
+                System.out.println(width);
+
+                String text = (String) jSon.get("text");
+                System.out.println(text);
+            
+                String type = (String) jSon.get("type");
+                System.out.println(type);
+            
+                String layer = (String) jSon.get("layer");
+                System.out.println(layer);
+            
+                String height = (String) jSon.get("height");
+                System.out.println(text);   
+                
+                JButton btn = new JButton(text);
+                btn.setBounds(Integer.parseInt(locationx), Integer.parseInt(locationy), Integer.parseInt(width), Integer.parseInt(height));
+                resi = new Resizable(btn);
+                resi.setBounds(Integer.parseInt(locationx), Integer.parseInt(locationy), Integer.parseInt(width), Integer.parseInt(height));
+                list.add(resi);
+                area.add(resi);
+            }
+        }
+        
+        if(o.containsKey("txt")){
+            element = (JSONArray) o.get("txt");
+        
+            for (Object obj : element){
+                JSONObject jSon = (JSONObject) obj;
+                
+                String locationx = (String) jSon.get("locationx");
+                System.out.println(locationx);
+
+                String locationy = (String) jSon.get("locationy");
+                System.out.println(locationy);
+
+                String width = (String) jSon.get("width");
+                System.out.println(width);
+
+                String text = (String) jSon.get("text");
+                System.out.println(text);
+            
+                String type = (String) jSon.get("type");
+                System.out.println(type);
+            
+                String layer = (String) jSon.get("layer");
+                System.out.println(layer);
+            
+                String height = (String) jSon.get("height");
+                System.out.println(text);   
+                
+                JTextField txt = new JTextField(text);
+                txt.setBounds(Integer.parseInt(locationx), Integer.parseInt(locationy), Integer.parseInt(width), Integer.parseInt(height));
+                resi = new Resizable(txt);
+                resi.setBounds(Integer.parseInt(locationx), Integer.parseInt(locationy), Integer.parseInt(width), Integer.parseInt(height));
+                list.add(resi);
+                area.add(resi);
+            }
+        }
+    }
+    
     private void initUI() {
         JPanel pnl = new JPanel(null);
         add(pnl);
 
         JMenuBar mb = new JMenuBar();
         JMenu menu1 = new JMenu("Save");
+        JMenu menu2 = new JMenu("Load");
         mb.add(menu1);
+        mb.add(menu2);
         setJMenuBar(mb);
         
         menu1.addMouseListener(new MouseAdapter() {
@@ -137,7 +261,7 @@ public class Test2 extends JFrame{
                 saveJson();
             }
         });
-
+ 
         JPanel area = new JPanel();
         area.setBackground(Color.white);
         area.setLayout(null);
@@ -147,6 +271,20 @@ public class Test2 extends JFrame{
         area.setTransferHandler(new ValueImport());
         
         pnl.add(res);
+        
+         menu2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent me) {
+
+                try {
+                    loadJson(area);
+                } catch (IOException ex) {
+                    Logger.getLogger(Test2.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Test2.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         
         addMouseListener(new MouseAdapter() {
             @Override
