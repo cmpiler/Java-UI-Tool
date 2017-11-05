@@ -68,7 +68,7 @@ public class Test2 extends JFrame{
                     locationy = sb.toString();
                     
                     
-                    elements += "lbl:locationx-" + locationx + ",locationy-" + locationy + ",width-" + label.getWidth() + ",height-" + label.getHeight() + ",text-" + text + ",type-lbl" +";";
+                    elements += "lbl:locationx-" + locationx + ",locationy-" + locationy + ",width-" + label.getWidth() + ",height-" + label.getHeight() + ",layer-" + i + ",text-" + text + ",type-lbl" +";";
                 }
                 
                 else if(component instanceof JButton){
@@ -89,9 +89,8 @@ public class Test2 extends JFrame{
                     sb.delete(0, 2);
                     sb.deleteCharAt(sb.length()-1);
                     locationy = sb.toString();
-                    
-                    
-                    elements += "btn:locationx-" + locationx + ",locationy-" + locationy + ",width-" + button.getWidth() + ",height-"+ button.getHeight() +  ",text-" + text + ",type-btn"  + ";";
+             
+                    elements += "btn:locationx-" + locationx + ",locationy-" + locationy + ",width-" + button.getWidth() + ",height-"+ button.getHeight() + ",layer-" + i + ",text-" + text + ",type-btn"  + ";";
                 }
                 
                 else if(component instanceof JTextField){
@@ -113,7 +112,7 @@ public class Test2 extends JFrame{
                     sb.deleteCharAt(sb.length()-1);
                     locationy = sb.toString();
                     
-                    elements += "txt:locationx-" + locationx + ",locationy-" + locationy + ",width-" + txt.getWidth() +",height-"+ txt.getHeight() + ",text-" + text + ",type-txt" +";";
+                    elements += "txt:locationx-" + locationx + ",locationy-" + locationy + ",width-" + txt.getWidth() +",height-"+ txt.getHeight() + ",layer-" + i + ",text-" + text + ",type-txt" +";";
                 }
             }
             System.out.println(elements);
@@ -122,13 +121,19 @@ public class Test2 extends JFrame{
             
     }
     
+    private void loadJson(){
+        
+    }
+    
     private void initUI() {
         JPanel pnl = new JPanel(null);
         add(pnl);
 
         JMenuBar mb = new JMenuBar();
         JMenu menu1 = new JMenu("Save");
+        JMenu menu2 = new JMenu("Load");
         mb.add(menu1);
+        mb.add(menu2);
         setJMenuBar(mb);
         
         menu1.addMouseListener(new MouseAdapter() {
@@ -136,6 +141,14 @@ public class Test2 extends JFrame{
             public void mousePressed(MouseEvent me) {
 
                 saveJson();
+            }
+        });
+        
+        menu2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent me) {
+
+                loadJson();
             }
         });
         
@@ -290,7 +303,8 @@ public class Test2 extends JFrame{
                         switch(value.toString()){
                             case "Label":
                                 
-                                JLabel jl = new JLabel("Label");  
+                                JLabel jl = new JLabel("Label");
+                                
                                 res = new Resizable(jl);
                                 res.setBounds(450,200,100,40);
                                 list.add(res);

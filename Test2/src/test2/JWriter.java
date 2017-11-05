@@ -1,10 +1,7 @@
-package test2;
-
 import org.json.simple.JSONObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
-
 import org.json.simple.JSONArray;
 
 public class JWriter {
@@ -18,8 +15,8 @@ public class JWriter {
 		JSONArray jArrayL = new JSONArray();
 		JSONArray jArrayB = new JSONArray();
 		JSONArray jArrayT = new JSONArray();
-		String[] array, arrayCol, arrayCom, arrayLoc;
-		String tempString;
+		String[] array, arrayCol, arrayCom, arrayLoc, arraySize;
+		String tempString, tempString2;
 		array = input.split(";");
 		for (int i = 0; i < array.length; i++)
 		{
@@ -28,33 +25,118 @@ public class JWriter {
 			if (arrayCol[0].equals("lbl")){
 				arrayCom = arrayCol[1].split(",");
 				JSONObject temp = new JSONObject();
-				tempString = arrayCom[0].replace("location-x", "");
-				arrayLoc = tempString.split("y");
-				temp.put("locationx", arrayLoc[0]);
-				temp.put("locationy", arrayLoc[1]);
-				temp.put("text", arrayCom[1]);
+				temp.put("locationx", "");
+				temp.put("locationy", "");
+				temp.put("width", "");
+				temp.put("height", "");
+				temp.put("text", "");
+				temp.put("type", "");
+				for (int j = 0; j < arrayCom.length; j++){
+					
+					if (arrayCom[j].contains("locationx-")){
+						tempString = arrayCom[j].replace("locationx-", "");
+						temp.put("locationx", tempString);
+					}
+					else if (arrayCom[j].contains("locationy-")){
+						tempString = arrayCom[j].replace("locationy-", "");
+						temp.put("locationy", tempString);
+					}
+					else if (arrayCom[j].contains("width-")){
+						tempString2 = arrayCom[j].replace("width-", "");
+						temp.put("width", tempString2);
+					}
+					else if (arrayCom[j].contains("height-")){
+						tempString2 = arrayCom[j].replace("height-", "");
+						temp.put("height", tempString2);
+					}
+					
+					else if (arrayCom[j].contains("text-")){
+						temp.put("text", arrayCom[j].replace("text-", ""));
+					}
+					
+					else if (arrayCom[j].contains("type-")){
+						temp.put("type", arrayCom[j].replace("type-", ""));
+					}
+				}
+				
 				jArrayL.add(temp);
 			}
 			
 			else if (arrayCol[0].equals("btn")){
 				arrayCom = arrayCol[1].split(",");
 				JSONObject temp = new JSONObject();
-				tempString = arrayCom[0].replace("location-x", "");
-				arrayLoc = tempString.split("y");
-				temp.put("locationx", arrayLoc[0]);
-				temp.put("locationy", arrayLoc[1]);
-				temp.put("text", arrayCom[1]);
+				temp.put("locationx", "");
+				temp.put("locationy", "");
+				temp.put("width", "");
+				temp.put("height", "");
+				temp.put("text", "");
+				temp.put("type", "");
+				for (int j = 0; j < arrayCom.length; j++){
+					
+					if (arrayCom[j].contains("locationx-")){
+						tempString = arrayCom[j].replace("locationx-", "");
+						temp.put("locationx", tempString);
+					}
+					else if (arrayCom[j].contains("locationy-")){
+						tempString = arrayCom[j].replace("locationy-", "");
+						temp.put("locationy", tempString);
+					}
+					else if (arrayCom[j].contains("width-")){
+						tempString2 = arrayCom[j].replace("width-", "");
+						temp.put("width", tempString2);
+					}
+					else if (arrayCom[j].contains("height-")){
+						tempString2 = arrayCom[j].replace("height-", "");
+						temp.put("height", tempString2);
+					}
+					
+					else if (arrayCom[j].contains("text-")){
+						temp.put("text", arrayCom[j].replace("text-", ""));
+					}
+					
+					else if (arrayCom[j].contains("type-")){
+						temp.put("type", arrayCom[j].replace("type-", ""));
+					}
+				}
 				jArrayB.add(temp);
 			}
 			
 			else if (arrayCol[0].equals("txt")){
 				arrayCom = arrayCol[1].split(",");
 				JSONObject temp = new JSONObject();
-				tempString = arrayCom[0].replace("location-x", "");
-				arrayLoc = tempString.split("y");
-				temp.put("locationx", arrayLoc[0]);
-				temp.put("locationy", arrayLoc[1]);
-				temp.put("text", arrayCom[1]);
+				temp.put("locationx", "");
+				temp.put("locationy", "");
+				temp.put("width", "");
+				temp.put("height", "");
+				temp.put("text", "");
+				temp.put("type", "");
+				for (int j = 0; j < arrayCom.length; j++){
+					
+					if (arrayCom[j].contains("locationx-")){
+						tempString = arrayCom[j].replace("locationx-", "");
+						temp.put("locationx", tempString);
+					}
+					else if (arrayCom[j].contains("locationy-")){
+						tempString = arrayCom[j].replace("locationy-", "");
+						temp.put("locationy", tempString);
+					}
+					else if (arrayCom[j].contains("width-")){
+						tempString2 = arrayCom[j].replace("width-", "");
+						temp.put("width", tempString2);
+					}
+					else if (arrayCom[j].contains("height-")){
+						tempString2 = arrayCom[j].replace("height-", "");
+						temp.put("height", tempString2);
+					}
+					
+					else if (arrayCom[j].contains("text-")){
+						temp.put("text", arrayCom[j].replace("text-", ""));
+					}
+					
+					else if (arrayCom[j].contains("type-")){
+						temp.put("type", arrayCom[j].replace("type-", ""));
+					}
+				}
 				jArrayT.add(temp);
 			}
 		}
@@ -66,7 +148,7 @@ public class JWriter {
 		System.out.println(s);
 		
 		try { 
-			FileWriter file = new FileWriter("c:\\js.json"); // Your Directory
+			FileWriter file = new FileWriter("C:\\js.json"); // Your Directory
 			file.write(output.toJSONString());
 			file.flush();
 			file.close();
@@ -82,7 +164,6 @@ public class JWriter {
 	/*
 	public static void main(String[] args){
 		//testing area
-		write("lbl:location-x100y200,your label1;btn:location-x50y100,your button1;txt:location-x10y20,your txt1;lbl:location-x200y400,your label2;btn:location-x100y200,your button2;txt:location-x20y40,your txt2;txt:location-x40y80,your txt3;btn:location-x200y400,your button3;lbl:location-x400y800,your label3");
 	}
 	*/
 	
