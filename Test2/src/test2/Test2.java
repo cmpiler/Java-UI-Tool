@@ -32,7 +32,6 @@ import javax.swing.TransferHandler;
 public class Test2 extends JFrame{
     
  private Resizable res;
- private JWriter writer;
  private String elements = "";
  private static ArrayList<JComponent> list = new ArrayList<JComponent>();;
  
