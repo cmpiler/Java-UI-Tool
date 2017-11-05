@@ -50,71 +50,70 @@ public class Test2 extends JFrame{
                        
                     JLabel label = (JLabel)list.get(i).getComponent(0);
                     String tempLocation = list.get(i).getLocation().toString();
-                    String location = "";
+                    String locationx = "";
+                    String locationy = "";
                     String[] parts;
-                    
                     
                     String text = label.getText();
                     
-                    location = tempLocation.substring(tempLocation.lastIndexOf("[") + 1);
-                    parts= location.split(",");
+                    
+                    locationx = tempLocation.substring(tempLocation.lastIndexOf("[") + 1);
+                    parts= locationx.split(",");
                     StringBuilder sb = new StringBuilder(parts[0]);
-                    sb.deleteCharAt(1);
-                    location = sb.toString();
+                    sb.delete(0, 2);
+                    locationx = sb.toString();
                     sb = new StringBuilder(parts[1]);
-                    sb.deleteCharAt(1);
+                    sb.delete(0, 2);
                     sb.deleteCharAt(sb.length()-1);
-                    location += sb.toString();
+                    locationy = sb.toString();
                     
                     
-                    System.out.println(location);
-                    
-                    elements += "lbl:location-" + location + ",text-" + text + ";";
+                    elements += "lbl:locationx-" + locationx + ",locationy-" + locationy + ",width-" + label.getWidth() + ",height-" + label.getHeight() + ",text-" + text + ",type-lbl" +";";
                 }
                 
                 else if(component instanceof JButton){
                     JButton button = (JButton)list.get(i).getComponent(0);
                     String tempLocation = list.get(i).getLocation().toString();
-                    String location = "";
+                    String locationx = "";
+                    String locationy = "";
                     String[] parts;
                     
                     String text = button.getText();
                     
-                    location = tempLocation.substring(tempLocation.lastIndexOf("[") + 1);
-                    parts= location.split(",");
+                    locationx = tempLocation.substring(tempLocation.lastIndexOf("[") + 1);
+                    parts= locationx.split(",");
                     StringBuilder sb = new StringBuilder(parts[0]);
-                    sb.deleteCharAt(1);
-                    location = sb.toString();
+                    sb.delete(0, 2);
+                    locationx = sb.toString();
                     sb = new StringBuilder(parts[1]);
-                    sb.deleteCharAt(1);
+                    sb.delete(0, 2);
                     sb.deleteCharAt(sb.length()-1);
-                    location += sb.toString();
+                    locationy = sb.toString();
                     
                     
-                    System.out.println(location);
-                    elements += "btn:location-" + location + ",text-" + text + ";";
+                    elements += "btn:locationx-" + locationx + ",locationy-" + locationy + ",width-" + button.getWidth() + ",height-"+ button.getHeight() +  ",text-" + text + ",type-btn"  + ";";
                 }
                 
                 else if(component instanceof JTextField){
                     JTextField txt = (JTextField)list.get(i).getComponent(0);
-                     String tempLocation = list.get(i).getLocation().toString();
-                    String location = "";
+                    String tempLocation = list.get(i).getLocation().toString();
+                    String locationx = "";
+                    String locationy = "";
                     String[] parts;
+                    
                     String text = txt.getText();
                     
-                    location = tempLocation.substring(tempLocation.lastIndexOf("[") + 1);
-                    parts= location.split(",");
+                    locationx = tempLocation.substring(tempLocation.lastIndexOf("[") + 1);
+                    parts= locationx.split(",");
                     StringBuilder sb = new StringBuilder(parts[0]);
-                    sb.deleteCharAt(1);
-                    location = sb.toString();
+                    sb.delete(0, 2);
+                    locationx = sb.toString();
                     sb = new StringBuilder(parts[1]);
-                    sb.deleteCharAt(1);
+                    sb.delete(0, 2);
                     sb.deleteCharAt(sb.length()-1);
-                    location += sb.toString();
+                    locationy = sb.toString();
                     
-                    System.out.println(location);
-                    
-                    elements += "txt:location-" + location + ",text-" + text + ";";
+                    elements += "txt:locationx-" + locationx + ",locationy-" + locationy + ",width-" + txt.getWidth() +",height-"+ txt.getHeight() + ",text-" + text + ",type-txt" +";";
                 }
             }
             System.out.println(elements);
