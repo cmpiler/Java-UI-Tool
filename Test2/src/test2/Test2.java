@@ -44,23 +44,78 @@ public class Test2 extends JFrame{
     private void saveJson(){
          
             for(int i = 0; i < list.size(); i++){
-                   Component component = list.get(i).getComponent(i);
-                if(component instanceof JLabel){
-                    JLabel label = (JLabel)list.get(i).getComponent(i);
+                
+                   Component component = list.get(i).getComponent(0);
+                   
+                   if(component instanceof JLabel){
+                       
+                    JLabel label = (JLabel)list.get(i).getComponent(0);
+                    String tempLocation = list.get(i).getLocation().toString();
+                    String location = "";
+                    String[] parts;
+                    
+                    
                     String text = label.getText();
-                    elements += "lbl:location-" + list.get(i).getLocation() + ",text-" + text + ";";
+                    
+                    location = tempLocation.substring(tempLocation.lastIndexOf("[") + 1);
+                    parts= location.split(",");
+                    StringBuilder sb = new StringBuilder(parts[0]);
+                    sb.deleteCharAt(1);
+                    location = sb.toString();
+                    sb = new StringBuilder(parts[1]);
+                    sb.deleteCharAt(1);
+                    sb.deleteCharAt(sb.length()-1);
+                    location += sb.toString();
+                    
+                    
+                    System.out.println(location);
+                    
+                    elements += "lbl:location-" + location + ",text-" + text + ";";
                 }
                 
                 else if(component instanceof JButton){
-                    JButton button = (JButton)list.get(i).getComponent(i);
+                    JButton button = (JButton)list.get(i).getComponent(0);
+                    String tempLocation = list.get(i).getLocation().toString();
+                    String location = "";
+                    String[] parts;
+                    
                     String text = button.getText();
-                    elements += "btn:location-" + list.get(i).getLocation() + ",text-" + text + ";";
+                    
+                    location = tempLocation.substring(tempLocation.lastIndexOf("[") + 1);
+                    parts= location.split(",");
+                    StringBuilder sb = new StringBuilder(parts[0]);
+                    sb.deleteCharAt(1);
+                    location = sb.toString();
+                    sb = new StringBuilder(parts[1]);
+                    sb.deleteCharAt(1);
+                    sb.deleteCharAt(sb.length()-1);
+                    location += sb.toString();
+                    
+                    
+                    System.out.println(location);
+                    elements += "btn:location-" + location + ",text-" + text + ";";
                 }
                 
                 else if(component instanceof JTextField){
-                    JTextField txt = (JTextField)list.get(i).getComponent(i);
+                    JTextField txt = (JTextField)list.get(i).getComponent(0);
+                     String tempLocation = list.get(i).getLocation().toString();
+                    String location = "";
+                    String[] parts;
                     String text = txt.getText();
-                    elements += "txt:location-" + list.get(i).getLocation() + ",text-" + text + ";";
+                    
+                    location = tempLocation.substring(tempLocation.lastIndexOf("[") + 1);
+                    parts= location.split(",");
+                    StringBuilder sb = new StringBuilder(parts[0]);
+                    sb.deleteCharAt(1);
+                    location = sb.toString();
+                    sb = new StringBuilder(parts[1]);
+                    sb.deleteCharAt(1);
+                    sb.deleteCharAt(sb.length()-1);
+                    location += sb.toString();
+                    
+                    System.out.println(location);
+                    
+                    elements += "txt:location-" + location + ",text-" + text + ";";
                 }
             }
             System.out.println(elements);
