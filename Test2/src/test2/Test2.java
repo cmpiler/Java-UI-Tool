@@ -121,19 +121,13 @@ public class Test2 extends JFrame{
             
     }
     
-    private void loadJson(){
-        
-    }
-    
     private void initUI() {
         JPanel pnl = new JPanel(null);
         add(pnl);
 
         JMenuBar mb = new JMenuBar();
         JMenu menu1 = new JMenu("Save");
-        JMenu menu2 = new JMenu("Load");
         mb.add(menu1);
-        mb.add(menu2);
         setJMenuBar(mb);
         
         menu1.addMouseListener(new MouseAdapter() {
@@ -143,15 +137,7 @@ public class Test2 extends JFrame{
                 saveJson();
             }
         });
-        
-        menu2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent me) {
 
-                loadJson();
-            }
-        });
-        
         JPanel area = new JPanel();
         area.setBackground(Color.white);
         area.setLayout(null);
